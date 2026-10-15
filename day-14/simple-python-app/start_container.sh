@@ -1,18 +1,11 @@
 #!/bin/bash
 set -e
 
-IMAGE="moaazsaleem/simple-python-flask-app:latest"
-CONTAINER_NAME="simple-python-flask-app"
+docker pull moaazsaleem/simple-python-flask-app:latest
 
-docker pull "$IMAGE"
+docker rm -f simple-python-flask-app 2>/dev/null || true
 
-# Remove an old container if it still exists
-if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
-    docker rm -f "$CONTAINER_NAME"
-fi
-
-# Start the container
-docker run -d 
-    --name "$CONTAINER_NAME" 
-    -p 5000:5000 
-    "$IMAGE"
+docker run -d \
+  --name simple-python-flask-app \
+  -p 5000:5000 \
+  moaazsaleem/simple-python-flask-app:latest
